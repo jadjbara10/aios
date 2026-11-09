@@ -1,0 +1,14 @@
+# aios-ai-core — AIOS subsystem crate
+# Part of the AIOS v0.1 Alpha monorepo. Author: Jad Jbara <jad@aios.dev>
+[package]
+name = "aios-ai-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "AIOS subsystem crate"
+
+[dependencies]
+spin = { workspace = true }
+log = { workspace = true }
+

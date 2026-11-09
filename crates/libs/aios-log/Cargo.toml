@@ -1,0 +1,12 @@
+# aios-log — shared logging traits + early-boot ring sink.
+# Author: Jad Jbara <jad@aios.dev>
+[package]
+name = "aios-log"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Shared logging vocabulary for AIOS (log facade helpers)"
+
+[dependencies]
+log = { workspace = true }

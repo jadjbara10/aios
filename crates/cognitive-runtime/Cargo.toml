@@ -1,0 +1,14 @@
+# aios-cognitive-runtime — Planner, Reasoner, Decision Engine
+# Part of the AIOS v0.1 Alpha monorepo. Author: Jad Jbara <jad@aios.dev>
+[package]
+name = "aios-cognitive-runtime"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Planner, Reasoner, Decision Engine"
+
+[dependencies]
+spin = { workspace = true }
+log = { workspace = true }
+aios-ai-core = { path = "../ai-core" }

@@ -1,0 +1,12 @@
+# aios-sync — synchronization primitives shared across AIOS crates.
+# Author: Jad Jbara <jad@aios.dev>
+[package]
+name = "aios-sync"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Spinlocks, once-cells and lock-free primitives for no_std AIOS"
+
+[dependencies]
+spin = { workspace = true }

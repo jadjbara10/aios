@@ -1,0 +1,14 @@
+# aios-agents — Root + specialist agents, Agent Message Bus
+# Part of the AIOS v0.1 Alpha monorepo. Author: Jad Jbara <jad@aios.dev>
+[package]
+name = "aios-agents"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Root + specialist agents, Agent Message Bus"
+
+[dependencies]
+spin = { workspace = true }
+log = { workspace = true }
+aios-cognitive-runtime = { path = "../cognitive-runtime" }

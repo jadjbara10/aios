@@ -1,0 +1,14 @@
+# aios-gui — Framebuffer desktop, agent-centric windows
+# Part of the AIOS v0.1 Alpha monorepo. Author: Jad Jbara <jad@aios.dev>
+[package]
+name = "aios-gui"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Framebuffer desktop, agent-centric windows"
+
+[dependencies]
+spin = { workspace = true }
+log = { workspace = true }
+

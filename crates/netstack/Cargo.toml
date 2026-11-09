@@ -1,0 +1,14 @@
+# aios-netstack — Native TCP/IP, DNS, HTTP/TLS
+# Part of the AIOS v0.1 Alpha monorepo. Author: Jad Jbara <jad@aios.dev>
+[package]
+name = "aios-netstack"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Native TCP/IP, DNS, HTTP/TLS"
+
+[dependencies]
+spin = { workspace = true }
+log = { workspace = true }
+aios-hal = { path = "../hal" }

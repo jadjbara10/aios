@@ -1,0 +1,62 @@
+# =============================================================================
+# AIOS v0.1 Alpha - Hardware Abstraction Layer crate manifest.
+# Author: Jad Jbara <jad@aios.dev>
+# =============================================================================
+#
+# The HAL sits between the immutable kernel core and the AI-generated driver
+# crates. It exposes a small set of uniform traits (BlockDevice,
+# InterruptController, Timer, SerialConsole) plus a runtime DeviceRegistry
+# and a CapabilityBus that mediates every device access.
+#
+# 'no_std' is mandatory: the HAL must link against the kernel heap only,
+# never against host-libc. The crate is built once per target and consumed
+# by both the kernel proper and every generated driver crate.
+
+[package]
+name = "aios-hal"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "AIOS Hardware Abstraction Layer - uniform device traits, device tree, capability bus."
+repository.workspace = true
+publish = false
+
+[lib]
+name = "hal"
+path = "src/lib.rs"
+crate-type = ["rlib"]
+# The HAL is linked into the kernel image; no proc-macro or dylib here.
+
+[features]
+default = []
+# Enable logging of capability grants/revokes for security auditing.
+audit = []
+# Include the x86_64 port I/O helpers (outb/inb) used by low-level drivers.
+# Off by default on non-x86 targets where they would not link.
+x86_64_io = []
+
+[dependencies]
+# spin 0.9 provides the IRQ-safe Mutex/RwLock used by DeviceRegistry and
+# CapabilityBus. We depend on the mutex + spin_mutex + lazy features.
+spin = { version = "0.9", default-features = false, features = ["mutex", "spin_mutex", "lazy"] }
+# 'log' facade - bridged to the kernel logger so HAL traces appear in the
+# boot log alongside kernel/agent logs.
+log = { version = "0.4", default-features = false }
+# bitflags 2.x - used by device capability masks and IRQ routing tables.
+bitflags = { version = "2.4", default-features = false }
+
+[lints.rust]
+# Every unsafe block must be justified with a // SAFETY: comment; the
+# deny-by-default 'unsafe_op_in_unsafe_fn' forces the inner-unsafe-block
+# pattern used throughout the HAL port helpers.
+unsafe_op_in_unsafe_fn = "deny"
+missing_docs = "warn"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-none", "x86_64-unknown-uefi"]
+all-features = true
+
+# -----------------------------------------------------------------------------
+# End of crates/hal/Cargo.toml
+# -----------------------------------------------------------------------------
