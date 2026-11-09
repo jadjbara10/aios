@@ -1,0 +1,45 @@
+# AIOS v0.1 Alpha - Workspace Manifest
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# Author: Jad Jbara <jad@aios.dev>
+[workspace]
+resolver = "2"
+members = [
+    "crates/kernel",
+    "crates/bootloader",
+    "crates/hal",
+    "crates/ai-core",
+    "crates/cognitive-runtime",
+    "crates/agents",
+    "crates/drivers",
+    "crates/knowledge",
+    "crates/netstack",
+    "crates/gui",
+    "crates/libs/aios-sync",
+    "crates/libs/aios-log",
+]
+
+[workspace.package]
+version = "0.1.0-alpha"
+edition = "2021"
+authors = ["Jad Jbara <jad@aios.dev>"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/aios-os/aios"
+
+[workspace.dependencies]
+spin = { version = "0.9", default-features = false, features = ["spin_mutex"] }
+volatile = "0.4"
+bitflags = "2.4"
+log = { version = "0.4", default-features = false }
+bit_field = "0.10"
+
+# Kernel builds never unwind - abort on panic for smallest, safest path.
+[profile.dev]
+panic = "abort"
+debug = true
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = false

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install nightly toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rust-src, llvm-tools-preview, rustfmt, clippy
+
+      - name: Format check
+        run: cargo fmt --all -- --check
+        continue-on-error: true # hard gate lands in Phase 2 hardening
+
+      - name: Clippy
+        run: cargo clippy --workspace -- -D warnings
+        continue-on-error: true # hard gate lands in Phase 2 hardening
+
+      - name: Build kernel (x86_64-aios)
+        run: cargo build --target targets/x86_64-aios.json -p aios-kernel
+        continue-on-error: true
+
+      - name: Build bootloader (x86_64-unknown-uefi)
+        run: cargo build --target x86_64-unknown-uefi -p aios-bootloader
+        continue-on-error: true
+
+      - name: Status
+        run: echo "AIOS v0.1-alpha scaffold CI - gates become enforcing at Phase 2 hardening."
