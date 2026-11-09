@@ -23,7 +23,7 @@ version = "0.1.0-alpha"
 edition = "2021"
 authors = ["Jad Jbara <jad@aios.dev>"]
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/aios-os/aios"
+repository = "https://github.com/jadjbara10/aios"
 
 [workspace.dependencies]
 spin = { version = "0.9", default-features = false, features = ["spin_mutex"] }
