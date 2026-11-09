@@ -1,0 +1,31 @@
+[package]
+name = "aios-bootloader"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "AIOS UEFI Bootloader - long-mode handoff into the cognitive kernel"
+
+[[bin]]
+name = "aios-boot"
+path = "src/main.rs"
+test = false
+
+[dependencies]
+uefi = { version = "0.28", features = ["alloc"] }
+uefi-services = "0.26"
+log = { workspace = true }
+
+[build-dependencies]
+# (Phase 2) goblin for richer ELF parsing. Phase 1 uses a hand parser.
+
+# UEFI apps are PE32+ images for the freestanding x86_64-unknown-uefi target.
+[profile.dev]
+panic = "abort"
+opt-level = 1
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1
+opt-level = 3

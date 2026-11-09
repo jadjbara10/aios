@@ -1,0 +1,24 @@
+[package]
+name = "aios-kernel"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "AIOS Hybrid Microkernel - Cognitive Infrastructure Core"
+
+[[bin]]
+name = "aios"
+path = "src/main.rs"
+test = false
+
+[dependencies]
+spin = { workspace = true }
+volatile = { workspace = true }
+bitflags = { workspace = true }
+log = { workspace = true }
+bit_field = { workspace = true }
+
+[features]
+default = ["serial-log"]
+serial-log = []
+# Future: qemu-test, integration-tests, smp
